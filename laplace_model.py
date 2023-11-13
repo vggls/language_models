@@ -15,8 +15,8 @@ def laplace_model(ngrams):
     
     for ngram in dictionary:
         count_ngram = dictionary[ngram]
-        count_prefix = sum(1 for ng in ngrams if ng[:-1] == ngram[:-1])  # Count occurrences of the prefix
-        dictionary[ngram] = (count_ngram + 1) / (count_prefix + V)  # Corrected formula
+        count_prefix = sum(1 for ng in ngrams if ng[:-1] == ngram[:-1])
+        dictionary[ngram] = (count_ngram + 1) / (count_prefix + V)
     
     unseen = 1 / V #probability assigned to unseen n-grams
         
