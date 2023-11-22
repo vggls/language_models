@@ -13,7 +13,7 @@ This is an introductory repo to different architectures of language models, trai
   Then replace test tokens not included in the vocabulary with '< unk>'.
 - For each training and test sentence add 2 '< bos>' tokens at the beginning and 2 '< eos>' tokens at the end
 - Calculate training and test 3-grams
-- Calculate 3-gram model with add-1 smoothing. The model learns to assign 1/|V| probability mass to any unseen test token, while the remaining 1-1/|V| is allocated to the available training 3-grams based on their frequency in the training sentences. 
+- Calculate 3-gram model with add-1 smoothing. The model learns to assign 1/|V| probability mass to any unseen test token, while the remaining (1-1/|V|) mass is allocated to the available training 3-grams based on their frequency in the training sentences. 
 - Test model performance by calculating perplexity over the test 3-grams.
 
 ## B. LSTM neural language model (build from scratch)
