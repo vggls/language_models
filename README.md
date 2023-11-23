@@ -1,13 +1,10 @@
 ## Intro
 This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. In sections A-C we present the steps followed for each model while section D is dedicated to comparisons and discussion.
 
-A. 3-gram language model with Laplace smoothing
-
-B. LSTM neural language model: I) with trainable embeddings, II) with pretrained embeddings
-
-C. Transformer model **(to do)**
-
-D. Discussion **(to do)**
+  A. 3-gram language model with Laplace smoothing <br>
+  B. LSTM neural language model: I) with trainable embeddings, II) with pretrained embeddings <br>
+  C. Transformer model **(to do)** <br>
+  D. Discussion **(to do)**
 
 ## A. 3-gram language model with Laplace smoothing
 - Training-Test data: 3576-338 sentences, downloaded in tokenized form    
