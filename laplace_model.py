@@ -41,7 +41,10 @@ def perplexity_ngram_model(nminus1_grams_counts,
     log_prob_sum = 0
     
     for n_gram in test_n_grams:
-        log_prob_sum += laplace_model(nminus1_grams_counts, n_grams_counts, n_gram, vocab_size)
+        log_prob_sum += math.log(laplace_model(nminus1_grams_counts, 
+                                               n_grams_counts, 
+                                               n_gram, 
+                                               vocab_size))
         
     unique_test_tokens = set()
     for lst in test_n_grams:
