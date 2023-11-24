@@ -26,4 +26,6 @@ This is an introductory repo to different architectures of language models, trai
      <img src="https://github.com/vggls/language_models/assets/55101427/cb5e3128-1ee2-4582-968a-c279f4d52a62.png" height="65" width="520" />
    </p>
 
+  In the above formula we note that 'log' refers to the natural logarithm (base e).
+
 ## B. LSTM neural language model
