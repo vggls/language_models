@@ -35,7 +35,8 @@ def laplace_model(nminus1_grams_counts,
 
 def perplexity_ngram_model(nminus1_grams_counts, 
                            n_grams_counts, 
-                           test_n_grams, 
+                           test_n_grams,
+                           no_of_test_tokens,
                            vocab_size):
 
     log_prob_sum = 0
@@ -46,11 +47,8 @@ def perplexity_ngram_model(nminus1_grams_counts,
                                                n_gram, 
                                                vocab_size))
         
-    unique_test_tokens = set()
-    for lst in test_n_grams:
-        unique_test_tokens.update(set(lst))
-    N = len(unique_test_tokens)
+    N = no_of_test_tokens
     
-    perplexity = math.exp(-log_prob_sum / N)
+    perplexity = math.exp(- log_prob_sum / N)
 
     return perplexity
