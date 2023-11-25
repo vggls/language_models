@@ -42,12 +42,12 @@ This is an introductory repo to different architectures of language models, trai
   
   The experiments currently presented in main.ipynb utilize the below hyperparameters configuration. The choice of values is 'handmade' based on case-by-case experimentation.
   This section will be enriched by considering Bayesian optimization technique for choosing the final values **(currently working on this)**.
-   
-    - embedding_dim =
+   <!-- discuss about tie weights as well -->
+    - embedding_dim = 256
     - GloVe pretrained word embeddings (for case II)
-    - num_layers =  (the number of lstm layers)
-    - hidden_dim =
-    - dropout_rate =
+    - num_layers = 2 (the number of lstm layers)
+    - hidden_dim = 256
+    - dropout_rate = 0.3
     - criterion = nn.CrossEntropyLoss()
     - optimizer = Adam
     - learning_rate = 0.001
