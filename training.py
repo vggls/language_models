@@ -117,7 +117,7 @@ class Train():
             loss = self.loss_fct(output, target)
             loss.backward()
 
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 1) # max_norm value is 1 - use for gradient exploding issue
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1) # max_norm value is 1 - use for gradient exploding issue
             
             self.optimizer.step()
     
