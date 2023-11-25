@@ -2,7 +2,7 @@
 This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. In sections A-C we present the steps followed for each model while section D is dedicated to comparisons and discussion.
 
   A. 3-gram language model with Laplace smoothing <br>
-  B. LSTM neural language model: I) with trainable embeddings, II) with pretrained embeddings <br>
+  B. LSTM neural language model: I) with trainable embeddings, II) with pretrained embeddings **(currently working on improvements)** <br>
   C. Transformer model **(to do)** <br>
   D. Discussion **(to do)**
 
@@ -29,3 +29,30 @@ This is an introductory repo to different architectures of language models, trai
   In the above formula we note that 'log' refers to the natural logarithm (base e).
 
 ## B. LSTM neural language model
+- Training-Validation-Test data: 3262-314-338 sentences, downloaded in tokenized form
+- For each token lower the first letter
+- Unknown words: Replace training tokens that appear less than 3 times with '< unk>' token and compute vocabulary V.
+  Then replace test tokens not included in the vocabulary with '< unk>'.
+- Embedding layer: In order to feed words into a neural language model we should create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
+- LSTM language model general architecture: <!-- shold put image here -->
+  
+        Embedding layer - LSTM layer(s) - Classification layer
+
+- The implemented models:
+  
+  The experiments currently presented in main.ipynb utilize the below hyperparameters configuration. The choice of values is 'handmade' based on case-by-case experimentation.
+  This section will be enriched by considering Bayesian optimization technique for choosing the final values **(currently working on this)**.
+   
+    - embedding_dim =
+    - GloVe pretrained word embeddings (for case II)
+    - num_layers =  (the number of lstm layers)
+    - hidden_dim =
+    - dropout_rate =
+    - criterion = nn.CrossEntropyLoss()
+    - optimizer = Adam
+    - learning_rate = 0.001
+    - sequence_length = 50 (the number of words used to predict the next word)
+    - batch_size = 128 (we train the model in batches of 128 51-word sequences (sequence_length=50 words, target=1 word)
+    - epochs = 50
+    - patience = 10 (we monitor the validation perplexity and train as long as there is improvement within 10 epochs from the last improved value)
+  
