@@ -19,7 +19,7 @@ This is an introductory repo to different architectures of language models, trai
    <p align="center">
      <img src="https://github.com/vggls/language_models/assets/55101427/bc95e121-3e6b-4d77-9992-64e4a3fb3359.png" height="200" width="600" />
    </p>
-  By adding 1 to the numerator and |V| to the denominator, we ensure that the model does not assign zero probability to any trigram, unseen (i.e. C(w_i-2, w_i-1, w_i)=0) or not.
+  The presence of 1 to the numerator and |V| to the denominator ensures that the model does not assign zero probability to any trigram, unseen (i.e. C(w_i-2, w_i-1, w_i)=0) or not.
 - Test model performance by calculating perplexity over the test 3-grams.
 
    <p align="center">
