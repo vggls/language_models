@@ -7,10 +7,9 @@ This is an introductory repo to different architectures of language models, trai
   D. Discussion **(to do)**
 
 ## A. 3-gram language model with Laplace smoothing
-- Training-Test data: 3576-338 sentences, downloaded in tokenized form    
-- For each token lower the first letter
-- Unknown words: Replace training tokens that appear less than 3 times with '< unk>' token and compute vocabulary V.
-  Then replace test tokens not included in the vocabulary with '< unk>'.
+- Training-Test data: 3576-338 sentences, downloaded in tokenized form. We consider all tokens except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' and punctuation symbols. 
+- For each token lower all letters.
+- Unknown words: A token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set or if it contains the un-natural sequence ' \ /' (Penn Treebank comes with tokens of this form as well).
 - 2-grams (sequences of 2 words): for each tokenized sentence add one '< bos>' token at the beginning and one '< eos>' token at the end. Then extract the resulting 2-grams per sentence.
 - 3-grams (sequences of 3 words): for each tokenized sentence add two '< bos>' tokens at the beginning and two '< eos>' tokens at the end. Then extract the resulting 3-grams per sentence.
 - Calculate 3-gram model with add-1 smoothing:
@@ -28,9 +27,9 @@ This is an introductory repo to different architectures of language models, trai
 
   In the above formula we note that 'log' refers to the natural logarithm (base e).
 
-## B. LSTM neural language model
-- Training-Validation-Test data: 3262-314-338 sentences, downloaded in tokenized form
-- For each token lower the first letter
+## B. LSTM neural language model (re-adapt based on A)
+- Training-Validation-Test data: 3262-314-338 sentences, downloaded in tokenized form. We consider all tokens except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' and punctuation symbols.
+- For each token lower all letters.
 - Unknown words: Replace training tokens that appear less than 3 times with '< unk>' token and compute vocabulary V.
   Then replace test tokens not included in the vocabulary with '< unk>'.
 - Embedding layer: In order to feed words into a neural language model we should create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
