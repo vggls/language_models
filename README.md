@@ -7,7 +7,7 @@ This is an introductory repo to different architectures of language models, trai
   D. Discussion **(to do)**
 
 ## A. 3-gram language model with Laplace smoothing
-- Training-Test data: 3576-338 sentences, downloaded in tokenized form. We consider all tokens except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' and punctuation symbols. 
+- Training-Test data: 3576-338 sentences, downloaded in tokenized form. We consider all tokens, including punctuation and numbers, except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-'. 
 - For each token lower all letters.
 - Unknown words: A token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set or if it contains the un-natural sequence ' \ /' (Penn Treebank comes with tokens of this form as well).
 - 2-grams (sequences of 2 words): for each tokenized sentence add one '< bos>' token at the beginning and one '< eos>' token at the end. Then extract the resulting 2-grams per sentence.
@@ -28,7 +28,7 @@ This is an introductory repo to different architectures of language models, trai
   In the above formula we note that 'log' refers to the natural logarithm (base e).
 
 ## B. LSTM neural language model (re-adapt based on A)
-- Training-Validation-Test data: 3262-314-338 sentences, downloaded in tokenized form. We consider all tokens except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' and punctuation symbols.
+- Training-Validation-Test data: 3262-314-338 sentences, downloaded in tokenized form. We consider all tokens, including punctuation and numbers, except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-'.
 - For each token lower all letters.
 - Unknown words: Replace training tokens that appear less than 3 times with '< unk>' token and compute vocabulary V.
   Then replace test tokens not included in the vocabulary with '< unk>'.
