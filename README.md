@@ -1,15 +1,15 @@
 ## Intro
-This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. In sections A-C we present the steps followed for each model while section D is dedicated to comparisons and discussion.
+This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. In sections A-C we present the steps followed to construct for each model, while section D is dedicated to analysis of results, comparisons and discussion.
 
   A. 3-gram language model with Laplace smoothing <br>
   B. LSTM neural language model: I) with trainable embeddings, II) with pretrained embeddings **(currently working on improvements)** <br>
   C. Transformer model **(to do)** <br>
   D. Discussion **(to do)**
 
+In our experiments, the Penn Treebank is downloaded from nltk and the sentences come in tokenized form.In our analysis, we consider all tokens in lower letter format, except for the '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' tokens describing parentheses variations. The numbers and punctuation symbols were also preserved. In addition, a token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set. Based on this we construct the vocabulary V, which contains the set of words that the model sees during training. In turn is used for replacing with '< unk>' test tokens not included in it.
+
 ## A. 3-gram language model with Laplace smoothing
-- Training-Test data: 3576-338 sentences, downloaded in tokenized form. We consider all tokens, including punctuation and numbers, except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-'. 
-- For each token lower all letters.
-- Unknown words: A token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set or if it contains the un-natural sequence ' \ /' (Penn Treebank comes with tokens of this form as well).
+- Training-Test data: 3576-338 sentences
 - 2-grams (sequences of 2 words): for each tokenized sentence add one '< bos>' token at the beginning and one '< eos>' token at the end. Then extract the resulting 2-grams per sentence.
 - 3-grams (sequences of 3 words): for each tokenized sentence add two '< bos>' tokens at the beginning and two '< eos>' tokens at the end. Then extract the resulting 3-grams per sentence.
 - Calculate 3-gram model with add-1 smoothing:
