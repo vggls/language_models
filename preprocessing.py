@@ -46,17 +46,6 @@ def create_ngrams(n, tokenized_sentences):
                          
     return ngrams
 
-def replace_doubleslash_token_with_unk(lists_of_tokens):
-    
-    #doubleslash token = token including '\/'
-    
-    for lst in lists_of_tokens:
-        for i, token in enumerate(lst):
-            if ('\/' in token):
-                lst[i] = '<unk>'
-                
-    return lists_of_tokens
-
 def tokens_to_indices(token_to_index_mapping, tokenized_sentences):
     
     sequences = [[token_to_index_mapping[word] for word in sentence] for sentence in tokenized_sentences]
