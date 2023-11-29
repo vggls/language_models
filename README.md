@@ -61,4 +61,4 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
       epochs = 50
       patience = 10 (we monitor the validation perplexity and train as long as there is improvement within 10 epochs from the last improved value)
   
-- Discuss perplexity here (and give the loss = logprob formula)
+- Discuss perplexity here (and give the loss = -logprob formula)
