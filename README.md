@@ -27,31 +27,38 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
 
   In the above formula we note that 'log' refers to the natural logarithm (base e).
 
-## B. LSTM neural language model (re-adapt based on A)
-- Training-Validation-Test data: 3262-314-338 sentences, downloaded in tokenized form. We consider all tokens, including punctuation and numbers, except for '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-'.
-- For each token lower all letters.
-- Unknown words: Replace training tokens that appear less than 3 times with '< unk>' token and compute vocabulary V.
-  Then replace test tokens not included in the vocabulary with '< unk>'.
-- Embedding layer: In order to feed words into a neural language model we should create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
-- LSTM language model general architecture: <!-- shold put image here -->
+## B. LSTM neural language model
+- Training-Validation-Test data: 3262-314-338 sentences
+- Embedding layer: In order to feed words into a neural language model we must create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
+- LSTM language model general architecture: 
   
-        Embedding layer - LSTM layer(s) - Classification layer
+       Input (N,L+1) --> Embedding --> (N,L+1,E) matrix --> LSTM --> (N, L+1, H) vector --> Classification --> (N,|V|)   
+                           layer                           layer(s)                            layer
+  
+         where N: num of batches
+               L: sequence length
+               E: embedding dim
+               H: LSTM's hidden dimension
+             |V|: vocabulary V size           
 
+- discuss reduced vocabulary here and GloVe embeddings
+- discuss the tie weights concept and why i did not apply it to the models. in case ii it is preferable if the output layer is learnable and not frozen. i could apply it to case i but
+  i want the models to be as-comparable-as possible..
+  
 - The implemented models:
   
-  The experiments currently presented in main.ipynb utilize the below hyperparameters configuration. The choice of values is 'handmade' based on case-by-case experimentation.
-  This section will be enriched by considering Bayesian optimization technique for choosing the final values **(currently working on this)**.
-   <!-- discuss about tie weights as well -->
-    - embedding_dim = 256
-    - GloVe pretrained word embeddings (for case II)
-    - num_layers = 2 (the number of lstm layers)
-    - hidden_dim = 256
-    - dropout_rate = 0.3
-    - criterion = nn.CrossEntropyLoss()
-    - optimizer = Adam
-    - learning_rate = 0.001
-    - sequence_length = 50 (the number of words used to predict the next word)
-    - batch_size = 128 (we train the model in batches of 128 51-word sequences (sequence_length=50 words, target=1 word)
-    - epochs = 50
-    - patience = 10 (we monitor the validation perplexity and train as long as there is improvement within 10 epochs from the last improved value)
+  The experiments currently presented in main.ipynb utilize the below **hyperparameters configuration**. The choice of values is 'handmade' based on case-by-case experimentation.
   
+      embedding_dim = 256
+      num_layers = 2 (the number of lstm layers)
+      hidden_dim = 256
+      dropout_rate = 0.3
+      criterion = nn.CrossEntropyLoss()
+      optimizer = Adam
+      learning_rate = 0.001
+      sequence_length = 50 (the number of words used to predict the next word)
+      batch_size = 128 (we train the model in batches of 128 51-word sequences (sequence_length=50 words, target=1 word)
+      epochs = 50
+      patience = 10 (we monitor the validation perplexity and train as long as there is improvement within 10 epochs from the last improved value)
+  
+- Discuss perplexity here (and give the loss = logprob formula)
