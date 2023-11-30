@@ -88,10 +88,6 @@ class Train():
 
     def process_sequence(self, sequence):
 
-        '''
-        give description and explain why we skip the small batch
-        '''
-
         sequences = [sequence[i:i+self.sequence_length+1] for i in range(0, len(sequence)-self.sequence_length)]
         num_batches = len(sequence)//self.batch_size
 
