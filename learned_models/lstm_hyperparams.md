@@ -1,8 +1,8 @@
 Hyperparameter configuration of current LSTM models.
 
-- embedding_dim = 256
+- embedding_dim = 300
 - num_layers = 2 (the number of lstm layers)
-- hidden_dim = 256
+- hidden_dim = 512
 - dropout_rate = 0.3
 - criterion = nn.CrossEntropyLoss()
 - optimizer = Adam
