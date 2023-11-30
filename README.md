@@ -20,7 +20,7 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
 
   The model learns to calculate next word probabilities given the previous two words, as per following formula:
    <p align="center">
-     <img src="https://github.com/vggls/language_models/assets/55101427/bc95e121-3e6b-4d77-9992-64e4a3fb3359.png" height="200" width="600" />
+     <img src="https://github.com/vggls/language_models/assets/55101427/c1d237ca-d348-4658-a36f-3a31f5652314.png" height="170" width="600" />
    </p>
   The presence of 1 to the numerator and |V| (= vocabulary size) to the denominator ensures that the model does not assign zero probability to any trigram, unseen (i.e. C(w_i-2, w_i-1, w_i)=0) or not.
 - Test model performance by calculating perplexity over the test 3-grams.
@@ -39,19 +39,22 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
   We note that the embeddings do not contain representation for the '< eos>' and '< unk>' tokens. In our implementation, we assign the mean of all GloVe vectors to the '< eos>' token and a random vector, with values between GloVe min and max values, to the '< unk>' token.
   In addition, we note that there are 34 tokens included in the vocabulary of case I model (3259 size) which do not have a GloVe representation. To this purpose, in order to assign all vocabulary words to a GloVe embedding, we replaced these tokens with '< unk>' as well, resulting in a slightly smaller vocabulary (3225 size). This simple approach is one of many available to tackle this issue.
     
-- LSTM layer - give info
-- LSTM language model general architecture: - check if correct
+- LSTM language model general architecture:
   
-       Input (N,L+1) --> Embedding --> (N,L+1,E) matrix --> LSTM --> (N, L+1, H) vector --> Classification --> (N,|V|)   
-                           layer                           layer(s)                            layer
+      (N,L) --> Embedding --> (N,L,E) --> LSTM --> (N,L,H) --> Classification --> (N,L,|V|)   
+      input       layer        matrix    layer(s)   matrix         layer           matrix
   
-         where N: num of batches
-               L: sequence length
+         where N: batch size
+               L: sequence length used to predict the next token
                E: embedding dim
-               H: LSTM's hidden dimension
+               H: hidden dimension size (i.e. units) per LSTM layer
              |V|: vocabulary V size           
 
-- implemented models remark
+  <!-- My remarks for each layer:
+  a)Embedding layer: Per batch, we have N L-length sequences of tokens. Passing them throught the embedding layer we get an E=300-dim representation per token. Thus (N,L,E) is ok.
+  b)LSTM layer: Each token vector representation is fed into H units, resulting into H outputs. Thus (N,L,H) is ok.
+  c)Classification layer: Each 
+   -->
   
 - In order to train this kind of models we map token sequences to the next token in the text. The loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). For a sequence of L tokens, the Cross-Entropy (CE) loss is given by:
 
