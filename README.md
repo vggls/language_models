@@ -50,10 +50,11 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
                H: hidden dimension size (i.e. units) per LSTM layer
              |V|: vocabulary V size           
 
-  <!-- My remarks for each layer:
+  <!--
+  My remarks for each layer:
   a)Embedding layer: Per batch, we have N L-length sequences of tokens. Passing them throught the embedding layer we get an E=300-dim representation per token. Thus (N,L,E) is ok.
-  b)LSTM layer: Each token vector representation is fed into H units, resulting into H outputs. Thus (N,L,H) is ok.
-  c)Classification layer: Each 
+  b)LSTM layer: 
+  c)Classification layer: Each sequence of H outputs is passed to the classification layer in order to predict the next word. The prediction is a probability distribution over the the vocabulary. Thus (N,L,|V|) is ok.
    -->
   
 - In order to train this kind of models we map token sequences to the next token in the text. The loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). For a sequence of L tokens, the Cross-Entropy (CE) loss is given by:
