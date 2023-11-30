@@ -29,7 +29,7 @@ class Train():
         self.scheduler = scheduler                       # to gradually adjust learning rate value
         self.train_sequence = train_sequence             # list of integers
         self.val_sequence = val_sequence                 # list of integers
-        self.sequence_length = sequence_length           # integer
+        self.sequence_length = sequence_length           # integer - no. of tokens we use to predict the next token
         self.batch_size = batch_size                     # integer
         self.epochs = epochs                             # max number of epochs to train the model
         self.patience = patience                         # epochs to wait until EarlyStopping condition is satisfied
