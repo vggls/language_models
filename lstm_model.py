@@ -31,3 +31,13 @@ class LSTMModel(nn.Module):
         dropout_out = self.dropout(lstm_out)
         output = self.fc(dropout_out[:, -1, :])
         return output
+
+'''
+A remark on the nn.LSTM arguments (https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html)
+input_size: the size of each 'point' entering an LSTM unit
+            in our task a point is a vector representating a word, asx extracted from the embedding layer
+hidden_size: the number of hidden states to calculate in the LSTM layer
+             so this is the same as the number of lstm units/cell in the LSTM layer
+             (same as the 'units' argument in Keras)
+num_layers: the number of LSTM layers
+'''
