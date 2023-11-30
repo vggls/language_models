@@ -39,10 +39,10 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
   We note that the embeddings do not contain representation for the '< eos>' and '< unk>' tokens. In our implementation, we assign the mean of all GloVe vectors to the '< eos>' token and a random vector, with values between GloVe min and max values, to the '< unk>' token.
   In addition, we note that there are 34 tokens included in the vocabulary of case I model (3259 size) which do not have a GloVe representation. To this purpose, in order to assign all vocabulary words to a GloVe embedding, we replaced these tokens with '< unk>' as well, resulting in a slightly smaller vocabulary (3225 size). This simple approach is one of many available to tackle this issue.
     
-- LSTM language model general architecture:
+- LSTM language model general architecture (we focus on the output at the last time step for each sequence):
   
-      (N,L) --> Embedding --> (N,L,E) --> LSTM --> (N,L,H) --> Classification --> (N,L,|V|)   
-      input       layer        matrix    layer(s)   matrix         layer           matrix
+      (N,L) --> Embedding --> (N,L,E) --> LSTM --> (N,H) --> Classification --> (N,|V|)   
+      input       layer        matrix    layer(s)  matrix        layer          matrix
   
          where N: batch size
                L: sequence length used to predict the next token
@@ -53,8 +53,8 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
   <!--
   My remarks for each layer:
   a)Embedding layer: Per batch, we have N L-length sequences of tokens. Passing them throught the embedding layer we get an E=300-dim representation per token. Thus (N,L,E) is ok.
-  b)LSTM layer: 
-  c)Classification layer: Each sequence of H outputs is passed to the classification layer in order to predict the next word. The prediction is a probability distribution over the the vocabulary. Thus (N,L,|V|) is ok.
+  b)LSTM layer: Fix a batch sequence and consider that the layer has H units. Per unit in parallel, we pass one-by-one the words (in vector form). Gradually, exhasuting all words (each word corresponds to a time-step) we get L predictions per unit. So, the LSTM output is normally (L,H) i.e. H predictions per time-step. So, it is valid to write (N,L,H) as well in the architecture. Since, for language modelling task, we are interested in predicting the sequence output only after the last time step we are particularly interested only in the last 'set' of predictions. So, only in the last H predictions produced by the LSTM layer. That is we write H instead of (L,H). 
+  c)Classification layer: he job of a classification layer is to get as input the LSTM's vectorized view of the next word (the view is as large as we want, most specifically of size H) and assign it (with a probability) to a particular vocabulary word. Based on this, it is straightforward to say that an H-dim input results in a |V|-dim output and a (L,H) input to a (L,|V|) output.
    -->
   
 - In order to train this kind of models we map token sequences to the next token in the text. The loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). For a sequence of L tokens, the Cross-Entropy (CE) loss is given by:
