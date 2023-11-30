@@ -53,7 +53,7 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
   <!--
   My remarks for each layer:
   a)Embedding layer: Per batch, we have N L-length sequences of tokens. Passing them throught the embedding layer we get an E=300-dim representation per token. Thus (N,L,E) is ok.
-  b)LSTM layer: Fix a batch sequence and consider that the layer has H units. Per unit in parallel, we pass one-by-one the words (in vector form). Gradually, exhasuting all words (each word corresponds to a time-step) we get L predictions per unit. So, the LSTM output is normally (L,H) i.e. H predictions per time-step. So, it is valid to write (N,L,H) as well in the architecture. Since, for language modelling task, we are interested in predicting the sequence output only after the last time step we are particularly interested only in the last 'set' of predictions. So, only in the last H predictions produced by the LSTM layer. That is we write H instead of (L,H). 
+  b)LSTM layer: Fix a batch sequence and consider that the layer has H units. In parallel, we pass one-by-one the words (in vector form) to the units. Gradually, exhasuting all words (each word corresponds to a time-step) we get L predictions per unit. So, the LSTM output is normally (L,H) i.e. H predictions per time-step. So, it is valid to write (N,L,H) as well in the architecture. Since, for language modelling task, we are interested in predicting the sequence output only after the last time step we are particularly interested only in the last 'set' of predictions. So, only in the last H predictions produced by the LSTM layer. That is we write H instead of (L,H). 
   c)Classification layer: The job of a classification layer is to get as input the LSTM's vectorized view of the next word (the view is as large as we want, most specifically of size H) and map/assign it (with a probability) to a particular vocabulary word. Based on this, it is straightforward to say that an H-dim input results in a |V|-dim output and a (L,H) input to a (L,|V|) output.
    -->
   
@@ -68,3 +68,10 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
 - **Future improvements to include**:
     1. The choice of models hyperparameters values (see 'lstm_hyperparams.md' in 'learned models' folder) is currently based on case-by-case experimentation. This section will be enriched by implementing Bayesian optimization for hyperparameter tuning.
     2. Implement a more advanced technique to deal with vocabulary words that do not have a pre-trained representation (ex. subword embeddings or contextualized word embeddings)
+ 
+ ## C. Transformer model
+  to do
+
+ ## D. Discussion
+ to do
+
