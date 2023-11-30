@@ -1,8 +1,12 @@
 ## Intro
-This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. In sections A-C we present the steps followed to construct for each model, while section D is dedicated to analysis of results, comparisons and discussion.
+This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. 
 
-  A. 3-gram language model with Laplace smoothing <br>
-  B. LSTM neural language model: I) with trainable embeddings, II) with pretrained embeddings **(currently working on improvements)** <br>
+Sections A-C include the steps followed to construct each model and useful remarks to take into account. Section D is dedicated to analysis of the results, comparisons and discussion.
+
+  A. 3-gram language model with Laplace smoothing (*completed*) <br>
+  B. LSTM neural language model:  (*to work on improvements - see end of section B*) <br>
+      &nbsp; &nbsp; - case I) with trainable embeddings <br>
+      &nbsp; &nbsp; - case II) with pretrained embeddings <br>
   C. Transformer model **(to do)** <br>
   D. Discussion **(to do)**
 
@@ -47,11 +51,9 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
                H: LSTM's hidden dimension
              |V|: vocabulary V size           
 
-- discuss reduced vocabulary here and GloVe embeddings
-
 - The implemented models:
   
-  The experiments currently presented in main.ipynb utilize the below **hyperparameters configuration**. The choice of values is 'handmade' based on case-by-case experimentation.
+  In main.ipynb we consider the following hyperparameters configuration for the models. 
   
       embedding_dim = 256
       num_layers = 2 (the number of lstm layers)
@@ -66,3 +68,7 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
       patience = 10 (we monitor the validation perplexity and train as long as there is improvement within 10 epochs from the last improved value)
   
 - Discuss perplexity here (and give the loss = -logprob formula)
+
+- **Future improvements to include**:
+    1. The choice of models hyperparameters values is based on case-by-case experimentation. This section will be enriched by implementing Bayesian optimization for hyperparameter tuning
+    2. Implement a more advanced technique to deal with vocabulary words that do not have a pre-trained representation (ex. subword embeddings or contextualized word embeddings)
