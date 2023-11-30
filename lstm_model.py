@@ -9,7 +9,6 @@ class LSTMModel(nn.Module):
                  hidden_dim,
                  num_layers,
                  dropout_rate,
-                 tie_weights=True,
                  pretrained_embeddings=None):
 
         super(LSTMModel, self).__init__()
@@ -25,10 +24,6 @@ class LSTMModel(nn.Module):
                             batch_first=True)
         self.dropout = nn.Dropout(dropout_rate)
         self.fc = nn.Linear(hidden_dim, vocab_size)
-
-        if tie_weights:
-            assert embedding_dim == hidden_dim
-            self.embedding.weight = self.fc.weight
 
     def forward(self, x):
         embedded = self.embedding(x)
