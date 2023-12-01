@@ -72,8 +72,22 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
     2. Implement a more advanced technique to deal with vocabulary words that do not have a pre-trained representation (ex. subword embeddings or contextualized word embeddings)
  
  ## C. Transformer model
-  to do
+  (to do)
 
  ## D. Discussion
- to do
+ (to do)
 
+ Current perplexity results on the test set of 338 sentences: <br>
+ - 3-gram model: 1082.93 <br>
+ - lstm w/ learnable embeddings: 248.95 <br>
+ - lstm w/ GloVe embeddings: 195.72 <br>
+
+
+
+
+
+
+
+
+
+  
