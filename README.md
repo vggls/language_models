@@ -39,7 +39,9 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
   We note that the embeddings do not contain representation for the '< eos>' and '< unk>' tokens. In our implementation, we assign the mean of all GloVe vectors to the '< eos>' token and a random vector, with values between GloVe min and max values, to the '< unk>' token.
   In addition, we note that there are 34 tokens included in the vocabulary of case I model (3259 size) which do not have a GloVe representation. To this purpose, in order to assign all vocabulary words to a GloVe embedding, we replaced these tokens with '< unk>' as well, resulting in a slightly smaller vocabulary (3225 size). This simple approach is one of many available to tackle this issue.
     
-- LSTM language model general architecture (we focus on the output at the last time step for each sequence):
+- LSTM language model general architecture:
+
+  Due to the nature of language modelling task, in the LSTM layer we focus on the last time-step output only.
   
       (N,L) --> Embedding --> (N,L,E) --> LSTM --> (N,H) --> Classification --> (N,|V|)   
       input       layer        matrix    layer(s)  matrix        layer          matrix
