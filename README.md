@@ -4,10 +4,10 @@ This is an introductory repo to different architectures of language models, trai
 Sections A-C include the steps followed to construct each model and useful remarks to take into account while section D is dedicated to analysis of the results, comparisons and discussion.
 
   **A. 3-gram language model with Laplace smoothing** (*completed*) <br>
-  **B. LSTM neural language model:**  (*to work on improvements - see end of section B*) <br>
+  **B. LSTM neural language model:**  (*future improvements - see end of section B*) <br>
       &nbsp; &nbsp; **- case I) with learnable embeddings** <br>
       &nbsp; &nbsp; **- case II) with pretrained embeddings** <br>
-  **C. Transformer model** (*to do*) <br>
+  **C. Transformer model** (*currently working on this*) <br>
   **D. Discussion** (*to do*)
 
 In our experiments, the Penn Treebank is downloaded from nltk and the sentences come in tokenized form.In our analysis, we consider all tokens in lower letter format, except for the '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' tokens describing parentheses variations. The numbers and punctuation symbols were also preserved. In addition, a token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set. Based on this we construct the vocabulary V, which contains the set of words that the model sees during training. In turn is used for replacing with '< unk>' test tokens not included in it. We note that the vocabulary of the 3-gram model is slightly larger to the neural models ones, since for the neural models we had to define a small validation set as well. The test set is the same for all models.
@@ -72,7 +72,7 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
     2. Implement a more advanced technique to deal with vocabulary words that do not have a pre-trained representation (ex. subword embeddings or contextualized word embeddings)
  
  ## C. Transformer model
-  (to do)
+  (currenlty working on this)
 
  ## D. Discussion
  (to do)
