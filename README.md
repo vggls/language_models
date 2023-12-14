@@ -65,9 +65,10 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
  <p align="center">
      <img src="https://github.com/vggls/language_models/assets/55101427/a7d67ad2-c63c-4199-b84f-0cd0eb471880.png" height="45" width="500" />
-   </p>
-
-  Due to the recurrence in the calculation of hidden states, h_(t+1) depends on h_t, the output y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
+   </p> 
+   
+   &nbsp; &nbsp; &nbsp; &nbsp; Due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the output y_(t+1) can be computed as long as y_t 
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
    
 - For this kind of models, the **perplexity** formula, introduced in section A, can be adjusted accordingly as per above loss formula.
 
