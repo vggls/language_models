@@ -1,10 +1,8 @@
 ## Intro
-This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. 
-
-Sections A-C include the steps followed to construct each model and useful remarks to take into account while section D is dedicated to analysis of the results, comparisons and discussion.
+This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. Language Modeling is the task of predicting the next word in a document. This repo is organized as follows:
 
   **A. 3-gram language model with Laplace smoothing** (*completed*) <br>
-  **B. LSTM neural language model:**  (*future improvements - see end of section B*) <br>
+  **B. LSTM neural language model:**  (*current version complete - for future improvements see end of section B*) <br>
       &nbsp; &nbsp; **- case I) with learnable embeddings** <br>
       &nbsp; &nbsp; **- case II) with pretrained embeddings** <br>
   **C. Transformer model** (*currently working on this*) <br>
@@ -33,13 +31,13 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
 
 ## B. LSTM neural language model
 - Training-Validation-Test data: 3262-314-338 sentences
-- Embedding layer: In order to feed words into a neural language model we must create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
+- **Embedding layer**: In order to feed words into a neural language model we must create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
 
   In regards to case II, we consider 300d pre-trained 6B-GloVe embeddings, which are kept frozen during training.
   We note that the embeddings do not contain representation for the '< eos>' and '< unk>' tokens. In our implementation, we assign the mean of all GloVe vectors to the '< eos>' token and a random vector, with values between GloVe min and max values, to the '< unk>' token.
   In addition, we note that there are 34 tokens included in the vocabulary of case I model (3259 size) which do not have a GloVe representation. To this purpose, in order to assign all vocabulary words to a GloVe embedding, we replaced these tokens with '< unk>' as well, resulting in a slightly smaller vocabulary (3225 size). This simple approach is one of many available to tackle this issue.
     
-- LSTM language model general architecture:
+- LSTM language model general **architecture**:
 
   Due to the nature of language modelling task, in the LSTM layer we focus on the last time-step output only.
   
@@ -59,13 +57,17 @@ In our experiments, the Penn Treebank is downloaded from nltk and the sentences 
   c)Classification layer: The job of a classification layer is to get as input the LSTM's vectorized view of the next word (the view is as large as we want, most specifically of size H) and map/assign it (with a probability) to a particular vocabulary word. Based on this, it is straightforward to say that an H-dim input results in a |V|-dim output and a (L,H) input to a (L,|V|) output.
    -->
   
-- In order to train this kind of models we map token sequences to the next token in the text. The loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). For a sequence of L tokens, the Cross-Entropy (CE) loss is given by:
+- In order to **train** this kind of models we map fixed-size token sequences to the next token in the text. This procedure takes place iteratively, sliding over the tokens sequence and shifting -at each time step- the target token of interest by one position to the right.
+
+  At time step t, the loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). This learning approach is often called **teacher forcing**. For a sequence of L training tokens, the Cross-Entropy (CE) loss is given by:
 
  <p align="center">
      <img src="https://github.com/vggls/language_models/assets/55101427/a7d67ad2-c63c-4199-b84f-0cd0eb471880.png" height="45" width="500" />
    </p>
+
+  Due to the recurrence in the calculation of hidden states, h_(t+1) depends on h_t, the output y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
    
-  &nbsp; &nbsp; &nbsp; &nbsp; In turn, the perplexity formula given in section A is adjusted accordingly.
+- For this kind of models, the **perplexity** formula, introduced in section A, can be adjusted accordingly as per above loss formula.
 
 - **Future improvements to include**:
     1. The choice of models hyperparameters values (see 'lstm_hyperparams.md' in 'learned models' folder) is currently based on case-by-case experimentation. This section will be enriched by implementing Bayesian optimization for hyperparameter tuning.
