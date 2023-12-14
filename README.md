@@ -1,5 +1,7 @@
 ## Intro
-This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. Language Modeling is the task of predicting the next word in a document. This repo is organized as follows:
+This is an introductory repo to different architectures of language models, trained and tested on the Penn Treebank. Language Modeling is the task of predicting the next word in a document. 
+
+Contents: <br>
 
   **A. 3-gram language model with Laplace smoothing** (*completed*) <br>
   **B. LSTM neural language model:**  (*current version complete - for future improvements see end of section B*) <br>
@@ -8,7 +10,7 @@ This is an introductory repo to different architectures of language models, trai
   **C. Transformer model** (*currently working on this*) <br>
   **D. Discussion** (*to do*)
 
-In our experiments, the Penn Treebank is downloaded from nltk and the sentences come in tokenized form.In our analysis, we consider all tokens in lower letter format, except for the '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' tokens describing parentheses variations. The numbers and punctuation symbols were also preserved. In addition, a token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set. Based on this we construct the vocabulary V, which contains the set of words that the model sees during training. In turn is used for replacing with '< unk>' test tokens not included in it. We note that the vocabulary of the 3-gram model is slightly larger to the neural models ones, since for the neural models we had to define a small validation set as well. The test set is the same for all models.
+The Penn Treebank is downloaded from nltk and the sentences come in tokenized form.In our analysis, we consider all tokens in lower letter format, except for the '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' tokens describing parentheses variations. The numbers and punctuation symbols were also preserved. In addition, a token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set. Based on this we construct the vocabulary V, which contains the set of words that the model sees during training. In turn is used for replacing with '< unk>' test tokens not included in it. We note that the vocabulary of the 3-gram model is slightly larger to the neural models ones, since for the neural models we had to define a small validation set as well. The test set is the same for all models.
 
 ## A. 3-gram language model with Laplace smoothing
 - Training-Test data: 3576-338 sentences
