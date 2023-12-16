@@ -62,13 +62,10 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 - In order to **train** this kind of models we **process the token sequence in a sequential manner**. We map fixed-size sequences to the next token in the text. This procedure takes place iteratively, sliding over the token sequence and shifting -at each time step- the target token of interest by one position to the right.
 
   At time step t, the loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). This learning approach is often called **teacher forcing**. For a sequence of L training tokens, the Cross-Entropy (CE) loss is given by:
-
- <p align="center">
-     <img src="https://github.com/vggls/language_models/assets/55101427/a7d67ad2-c63c-4199-b84f-0cd0eb471880.png" height="45" width="500" />
-   </p> 
-   
-   &nbsp; &nbsp; &nbsp; &nbsp; Due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the prediction y_(t+1) can be computed as long as 
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
+   <p align="center">
+       <img src="https://github.com/vggls/language_models/assets/55101427/a7d67ad2-c63c-4199-b84f-0cd0eb471880.png" height="45" width="500" />
+     </p> 
+   Due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the prediction y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
    
 - For this kind of models, the **perplexity** formula, introduced in section A, can be adjusted accordingly as per above loss formula.
 
