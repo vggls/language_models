@@ -1,5 +1,3 @@
-import math
-
 def count_n_grams(ngrams):
 
     dictionary = {}
@@ -32,22 +30,3 @@ def laplace_model(nminus1_grams_counts,
     prob = (x+1) / (y + vocab_size)
         
     return prob
-
-def perplexity_ngram_model(nminus1_grams_counts, 
-                           n_grams_counts, 
-                           test_n_grams,
-                           vocab_size):
-
-    log_prob_sum = 0
-    
-    for n_gram in test_n_grams:
-        log_prob_sum += math.log(laplace_model(nminus1_grams_counts, 
-                                               n_grams_counts, 
-                                               n_gram, 
-                                               vocab_size))
-        
-    N = len(test_n_grams) #N is equal to the sum updates
-    
-    perplexity = math.exp(- log_prob_sum / N)
-
-    return perplexity
