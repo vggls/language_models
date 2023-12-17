@@ -1,4 +1,4 @@
-## Intro
+![image](https://github.com/vggls/language_models/assets/55101427/8572f78e-c7af-4f30-99be-d3b7dcf47bc7)## Intro
 This is an introductory repo to different architectures of Language Models (LM), trained and tested on the Penn Treebank. Language Modeling is the task of predicting the next word in a document. 
 
 Contents: <br>
@@ -14,7 +14,7 @@ Contents: <br>
 
 The Penn Treebank is downloaded from nltk and the sentences come in tokenized form.In our analysis, we consider all tokens in lower letter format, except for the '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' tokens describing parentheses variations. The numbers and punctuation symbols were also preserved. In addition, a token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set. Based on this we construct the vocabulary V, which contains the set of words that the model sees during training. In turn is used for replacing with '< unk>' test tokens not included in it. We note that the vocabulary of the 3-gram model is slightly larger to the neural models ones, since for the neural models we had to define a small validation set as well. The test set is the same for all models.
 
-## A. 3-gram language model with Laplace smoothing
+## A. 3-gram model with Laplace smoothing
 - Training-Test data: 3576-338 sentences
 - 2-grams (sequences of 2 words): for each tokenized sentence add one '< bos>' token at the beginning and one '< eos>' token at the end. Then extract the resulting 2-grams per sentence.
 - 3-grams (sequences of 3 words): for each tokenized sentence add two '< bos>' tokens at the beginning and two '< eos>' tokens at the end. Then extract the resulting 3-grams per sentence.
@@ -33,7 +33,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
   In the above formula we note that 'log' refers to the natural logarithm (base e).
 
-## B. LSTM neural language model
+## B. LSTM model
 - Training-Validation-Test data: 3262-314-338 sentences
 - **Embedding layer**: In order to feed words into a neural language model we must create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
 
@@ -41,11 +41,11 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
   We note that the embeddings do not contain representation for the '< eos>' and '< unk>' tokens. In our implementation, we assign the mean of all GloVe vectors to the '< eos>' token and a random vector, with values between GloVe min and max values, to the '< unk>' token.
   In addition, we note that there are 34 tokens included in the vocabulary of case I model (3259 size) which do not have a GloVe representation. To this purpose, in order to assign all vocabulary words to a GloVe embedding, we replaced these tokens with '< unk>' as well, resulting in a slightly smaller vocabulary (3225 size). This simple approach is one of many available to tackle this issue (see section F as well).
 
-- In order to **train** this kind of models, we first put all the text tokens in a large input sequence, via their integer representation, and then process it **in a sequential manner**. To this purpose, we choose a hyper-parameter called sequence_length and map sequences of length sequence_length to the next token. This procedure takes place iteratively, sliding over the token sequence and shifting -at each time step- the target token of interest by one position to the right.
+- In order to **train** this kind of models, we first put all the text tokens in a large input sequence, via their integer representation, and then process it **in a sequential manner**. To this purpose, we choose a hyperparameter called sequence_length and map sequences of length sequence_length to the next token. This procedure takes place iteratively, sliding over the token sequence and shifting -at each time step- the target token of interest by one position to the right.
 
   At time step t, the loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). This learning approach is often called **teacher forcing**. For a sequence of L training tokens, the Cross-Entropy (CE) loss is given by:
    <p align="center">
-       <img src="https://github.com/vggls/language_models/assets/55101427/a7d67ad2-c63c-4199-b84f-0cd0eb471880.png" height="45" width="500" />
+       <img src=".png" height="45" width="500" />
      </p> 
    Due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the prediction y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
 
@@ -71,8 +71,17 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
    
 - For this kind of models, the **perplexity** formula, introduced in section A, can be adjusted accordingly as per above loss formula.
  
- ## C. Transformer model
-  (currenlty working on this)
+ ## C. Pre-trained transformer model
+  - Training-Validation-Test data: 3262-314-338 sentences
+  - We consider a pre-trained 'small' GPT2. During training we keep the embedding and transformer layers frozen and tune the linear 'head' to the needs of the training set.
+  - Similar to the LSTM model, we create an integer representation of the training tokens, put them in a large input sequence and choose a sequence_length hyperparameter value. In order to train the model, we process the input sequence in a sequential manner, mapping -however- sequences of sequence_length length to a sequence which is the initial one shifted by one time-step to the future.
+
+    This kind of models process the input sequence w_1,..,w_L (L=sequence_length) **in parallel**; using the inputs x_1,..,x_k to calculate y_k, for k<L. This results in L predictions y_1,..,y_L.
+
+    As per below formula, for fixed k sequence x_1,..,x_k, the loss is determined by the probability the model assigns to the correct next word x_(k+1), mainting the **teacher forcing** approach of recurrent nets.
+    <p align="center">
+          <img src=".png" height="45" width="500" />
+        </p> 
 
  ## D. Results
  On the test set of 338 sentences:
