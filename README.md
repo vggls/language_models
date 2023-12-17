@@ -109,7 +109,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
  ## E. Discussion
  (to do)
- <!-- create table comparing (differences only) LSTM and GPT2 wrt architecture/idea (2 innovations of transformers) and training process (see losses) -->
+ <!-- comparison recurrent vs transformer ??  -->
 
  ## F. Future improvements
   1. As far as the LSTM with pre-trained embeddings is concerned, we will implement a more advanced approach to deal with vocabulary words that do not have a pre-trained representation (ex. subword embeddings or contextualized word embeddings).
