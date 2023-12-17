@@ -1,4 +1,3 @@
-![image](https://github.com/vggls/language_models/assets/55101427/8572f78e-c7af-4f30-99be-d3b7dcf47bc7)## Intro
 This is an introductory repo to different architectures of Language Models (LM), trained and tested on the Penn Treebank. Language Modeling is the task of predicting the next word in a document. 
 
 Contents: <br>
@@ -43,11 +42,11 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
 - In order to **train** this kind of models, we first put all the text tokens in a large input sequence, via their integer representation, and then process it **in a sequential manner**. To this purpose, we choose a hyperparameter called sequence_length and map sequences of length sequence_length to the next token. This procedure takes place iteratively, sliding over the token sequence and shifting -at each time step- the target token of interest by one position to the right.
 
-  At time step t, the loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). This learning approach is often called **teacher forcing**. For a sequence of L training tokens, the Cross-Entropy (CE) loss is given by:
+  At time step t, the loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). This learning approach is often called **teacher forcing**. For a sequence of L training tokens, the Cross-Entropy (CE) loss is given by the formula below. For any step t, due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the prediction y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
+  
    <p align="center">
-       <img src=".png" height="45" width="500" />
+       <img src="https://github.com/vggls/language_models/assets/55101427/87fdb7f4-0c32-433e-a34a-e19a1cc769d1.png" height="45" width="500" />
      </p> 
-   Due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the prediction y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
 
 - LSTM language model general **architecture**:
 
@@ -76,13 +75,13 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
   - We consider a pre-trained 'small' GPT2. During training we keep the embedding and transformer layers frozen and tune the linear 'head' to the needs of the training set.
   - Similar to the LSTM model, we create an integer representation of the training tokens, put them in a large input sequence and choose a sequence_length hyperparameter value. In order to train the model, we process the input sequence in a sequential manner, mapping -however- sequences of sequence_length length to a sequence which is the initial one shifted by one time-step to the future.
 
-    This kind of models process the input sequence w_1,..,w_L (L=sequence_length) **in parallel**; using the inputs x_1,..,x_k to calculate y_k, for k<L. This results in L predictions y_1,..,y_L.
+    This kind of models process the input sequence w_1,..,w_L (L=sequence_length) **in parallel**; using the inputs w_1,..,w_k to calculate y_k, for k<L. This results in L predictions y_1,..,y_L, whose losses are calculated **in parallel** as well.
 
-    As per below formula, for fixed k sequence x_1,..,x_k, the loss is determined by the probability the model assigns to the correct next word x_(k+1), mainting the **teacher forcing** approach of recurrent nets.
+    As per below formula, for fixed k sequence w_1,..,w_k, the loss is determined by the probability the model assigns to the correct next word w_(k+1), mainting the **teacher forcing** approach of recurrent nets.
     <p align="center">
-          <img src=".png" height="45" width="500" />
-        </p> 
-
+          <img src="https://github.com/vggls/language_models/assets/55101427/6f32296f-a5cf-48dc-ad44-d97856eddd71.png" height="45" width="500" />
+        </p>
+        
  ## D. Results
  On the test set of 338 sentences:
  | Model  | Perplexity | Complexity |
