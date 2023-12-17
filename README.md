@@ -45,7 +45,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
   At time step t, the loss is determined by the probability the model assigns to the correct next word (which is known since we know the text). This learning approach is often called **teacher forcing**. For a sequence of L training tokens, the Cross-Entropy (CE) loss is given by the formula below. For any step t, due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the prediction y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
   
    <p align="center">
-       <img src="https://github.com/vggls/language_models/assets/55101427/87fdb7f4-0c32-433e-a34a-e19a1cc769d1.png" height="45" width="500" />
+       <img src="https://github.com/vggls/language_models/assets/55101427/87fdb7f4-0c32-433e-a34a-e19a1cc769d1.png" height="65" width="550" />
      </p> 
 
 - LSTM language model general **architecture**:
@@ -61,6 +61,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
                H: hidden dimension size (i.e. units) per LSTM layer
              |V|: vocabulary V size           
 
+  <!--VERY IMPORTANT: No need to apply Softmax! The output is fed into an nn.CrossEntropyLoss, which applies softmax by default. See documentation.-->
   <!--
   My remarks for each layer:
   a)Embedding layer: Per batch, we have N L-length sequences of tokens. Passing them throught the embedding layer we get an E=300-dim representation per token. Thus (N,L,E) is ok.
@@ -75,13 +76,28 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
   - We consider a pre-trained 'small' GPT2. During training we keep the embedding and transformer layers frozen and tune the linear 'head' to the needs of the training set.
   - Similar to the LSTM model, we create an integer representation of the training tokens, put them in a large input sequence and choose a sequence_length hyperparameter value. In order to train the model, we process the input sequence in a sequential manner, mapping -however- sequences of sequence_length length to a sequence which is the initial one shifted by one time-step to the future.
 
-    This kind of models process the input sequence w_1,..,w_L (L=sequence_length) **in parallel**; using the inputs w_1,..,w_k to calculate y_k, for k<L. This results in L predictions y_1,..,y_L, whose losses are calculated **in parallel** as well.
+    This kind of models process the input sequence w_1,..,w_L (L=sequence_length) **in parallel**; using the inputs w_1,..,w_k to calculate y_k, for k<=L. This results in L predictions y_1,..,y_L, whose losses are calculated **in parallel** as well.
 
     As per below formula, for fixed k sequence w_1,..,w_k, the loss is determined by the probability the model assigns to the correct next word w_(k+1), mainting the **teacher forcing** approach of recurrent nets.
     <p align="center">
-          <img src="https://github.com/vggls/language_models/assets/55101427/6f32296f-a5cf-48dc-ad44-d97856eddd71.png" height="45" width="500" />
+          <img src="https://github.com/vggls/language_models/assets/55101427/6f32296f-a5cf-48dc-ad44-d97856eddd71.png" height="60" width="500" />
         </p>
-        
+
+- small-GPT2 language model general **architecture**:
+
+      (N,L) --> Embedding --> (N,L,E) --> 12 transformer --> (N,L,E) --> Linear Head --> (N,L,|V|)
+      input      layers        matrix        layers           matrix        layer         matrix
+  
+         where N: batch size
+               L: integer-sequence length
+               E: embedding dim is 768 for the small version of GPT2
+             |V|: vocabulary V size
+    <!--VERY IMPORTANT: No need to apply Softmax! The output is fed into an nn.CrossEntropyLoss, which applies softmax by default. See documentation.-->
+  
+  More info about the nature of embedding and transformer layers for this architecture can be found at the original [publication](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+
+- For this kind of models, the **perplexity** formula, introduced in section A, can be adjusted accordingly as per above loss formula.
+  
  ## D. Results
  On the test set of 338 sentences:
  | Model  | Perplexity | Complexity |
@@ -93,6 +109,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
  ## E. Discussion
  (to do)
+ <!-- create table comparing (differences only) LSTM and GPT2 wrt architecture/idea (2 innovations of transformers) and training process (see losses) -->
 
  ## F. Future improvements
   1. As far as the LSTM with pre-trained embeddings is concerned, we will implement a more advanced approach to deal with vocabulary words that do not have a pre-trained representation (ex. subword embeddings or contextualized word embeddings).
