@@ -52,8 +52,8 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
   Due to the nature of language modelling task, in the LSTM layer we focus on the last time-step output only.
   
-      (N,L) --> Embedding --> (N,L,E) --> LSTM --> (N,H) --> Classification --> (N,|V|)   
-      input       layer        matrix    layer(s)  matrix        layer          matrix
+      (N,L+1) --> Embedding --> (N,L,E) --> LSTM --> (N,H) --> Classification --> (N,|V|)   
+       input        layer       matrix    layer(s)   matrix        layer          matrix
   
          where N: batch size
                L: integer-sequence length used to predict the next token (integer)
@@ -85,8 +85,8 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
 - small-GPT2 language model general **architecture**:
 
-      (N,L) --> Embedding --> (N,L,E) --> 12 transformer --> (N,L,E) --> Linear Head --> (N,L,|V|)
-      input      layers        matrix        layers           matrix        layer         matrix
+      (N,L+1) --> Embedding --> (N,L,E) --> 12 transformer --> (N,L,E) --> Linear Head --> (N,L,|V|)
+       input       layers        matrix        layers           matrix        layer         matrix
   
          where N: batch size
                L: integer-sequence length
