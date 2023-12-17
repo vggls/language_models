@@ -80,7 +80,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
     As per below formula, for a sequence w_1,..,w_k, the loss is determined by the probability the model assigns to the correct next word w_(k+1), mainting the **teacher forcing** approach of recurrent nets.
     <p align="center">
-          <img src="https://github.com/vggls/language_models/assets/55101427/6f32296f-a5cf-48dc-ad44-d97856eddd71.png" height="60" width="500" />
+          <img src="https://github.com/vggls/language_models/assets/55101427/6f32296f-a5cf-48dc-ad44-d97856eddd71.png" height="60" width="490" />
         </p>
 
 - small-GPT2 language model general **architecture**:
