@@ -3,8 +3,8 @@ This is an introductory repo to different architectures of Language Models (LM),
 
 Contents: <br>
 
-  **A. 3-gram language model with Laplace smoothing** <br>
-  **B. LSTM neural language model:** <br>
+  **A. 3-gram model with Laplace smoothing** <br>
+  **B. LSTM model:** <br>
       &nbsp; &nbsp; **- case I) with learnable embeddings** <br>
       &nbsp; &nbsp; **- case II) with pretrained embeddings** <br>
   **C. Pre-trained transformer model** <br>
@@ -79,9 +79,9 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
  | Model  | Perplexity | Complexity |
  |  ---: | :---: | :---: | 
  | 3-gram with Laplace smoothin  | 1082.93 | - |
- | lstm w/ learnable embeddings  | 248.95  | 2.9M |
- | lstm w/ GloVe embeddings      | 195.72  | 1.9M |
- | gpt2 w/ trainable head        | 139.07  | 2.5M |
+ | LSTM w/ learnable embeddings  | 248.95  | 2.9M |
+ | LSTM w/ GloVe embeddings      | 195.72  | 1.9M |
+ | GPT2 w/ trainable head        | 139.07  | 2.5M |
 
  ## E. Discussion
  (to do)
