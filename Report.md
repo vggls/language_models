@@ -74,7 +74,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
  ## C. Pre-trained transformer model
   - Training-Validation-Test data: 3262-314-338 sentences
   - We consider a pre-trained 'small' GPT2. During training we keep the embedding and transformer layers frozen and tune the linear 'head' to the needs of the training set.
-  - Similar to the LSTM model, we create an integer representation of the training tokens, put them in a large input sequence and choose a sequence_length hyperparameter value. In order to **train** the model, we process the input sequence in a sequential manner, by mapping a sequence of sequence_length length to the sequence which is the initial one shifted by one time-step to the future.
+  - Similar to the LSTM model, we create an integer representation of the training tokens, put them in a large input sequence and choose a sequence_length hyperparameter value. We **train** the model, we map a sequence of sequence_length length to the sequence which is the initial one shifted by one time-step to the future.
 
     This kind of models, during training, process the input sequence w_1,..,w_L (L=sequence_length) **in parallel**; using the inputs w_1,..,w_k to calculate y_k, for k<=L. This results in L predictions y_1,..,y_L, whose losses are calculated **in parallel** as well.
 
