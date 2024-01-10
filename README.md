@@ -8,7 +8,7 @@ Contents: <br>
       &nbsp; &nbsp; **- case II) with pretrained embeddings** <br>
   **C. Pre-trained transformer model** <br>
   **D. Results** <br>
-  **E. Discussion** <br>
+  **E. Text Generation & Discussion (to do)** <br>
   **F. Future improvements**
 
 The Penn Treebank is downloaded from nltk and the sentences come in tokenized form.In our analysis, we consider all tokens in lower letter format, except for the '-LRB-', '-RRB-', '-LSB-', '-RSB-', '-LCB-', '-RCB-' tokens describing parentheses variations. The numbers and punctuation symbols were also preserved. In addition, a token is considered unknown, '< unk>' token, if it appears less than 3 times in the training tokens set. Based on this we construct the vocabulary V, which contains the set of words that the model sees during training. In turn is used for replacing with '< unk>' test tokens not included in it. We note that the vocabulary of the 3-gram model is slightly larger to the neural models ones, since for the neural models we had to define a small validation set as well. The test set is the same for all models.
@@ -107,7 +107,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
  | LSTM w/ GloVe embeddings      | 195.72  | 1.9M |
  | GPT2 w/ trainable head        | 139.07  | 2.5M |
 
- ## E. Discussion
+ ## E. Text Generation & Discussion
  (to do)
  <!-- comparison recurrent vs transformer ??  -->
 
