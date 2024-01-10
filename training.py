@@ -100,7 +100,7 @@ class Train():
     #------------------------------------------------------------------------------------------------------
     def compute_batch_loss(self, batch):
         
-        if self.model_type == 'lstm'
+        if self.model_type == 'lstm':
             output = self.model(batch[:,:-1])      #output.shape = (batch_size, vocab_size)
             target = batch[:,-1]                   #target.shape = (batch_size)
             loss = self.loss_fct(output, target)
