@@ -50,7 +50,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
 - LSTM language model general **architecture**:
 
-  Due to the nature of language modelling task, in the LSTM layer we focus on the last time-step output only.
+  Due to the nature of language modelling task, **in the LSTM layer below we focus on the last time-step output only**.
   
       (N,L+1) --> Embedding --> (N,L,E) --> LSTM --> (N,H) --> Classification --> (N,|V|)   
        input        layer       matrix    layer(s)   matrix        layer          matrix
