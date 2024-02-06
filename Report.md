@@ -101,7 +101,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
  On the test set of 338 sentences:
  | Model  | Perplexity | Complexity |
  |  ---: | :---: | :---: | 
- | 3-gram with Laplace smoothin  | 1082.93 | - |
+ | 3-gram with Laplace smoothing | 1082.93 | - |
  | LSTM w/ learnable embeddings  | 248.95  | 2.9M |
  | LSTM w/ GloVe embeddings      | 195.72  | 1.9M |
  | GPT2 w/ trainable head        | 139.07  | 2.5M |
