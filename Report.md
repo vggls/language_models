@@ -34,7 +34,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
 
 ## B. LSTM model
 - Training-Validation-Test data: 3262-314-338 sentences
-- **Embedding layer**: In order to feed words into a neural language model we must create their vector representations. This is achieved via an embedding layer which is put at the beginning of the neural architecture. This layer takes as input an integer representation of each word and maps it into a vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
+- **Embedding layer**: In order to feed words into a neural language model we must create their vector representations. This is achieved via an embedding layer. which is put at the beginning of the neural architecture. This layer takes as input an integer/categorical representation of each word and maps it into a continuous-valued vector of desired length (embedding_dim hyperparameter). This layer could be either trainable (case I) or pre-trained (case II).
 
   In regards to case II, we consider 300d pre-trained 6B-GloVe embeddings, which are kept frozen during training.
   We note that the embeddings do not contain representation for the '< eos>' and '< unk>' tokens. In our implementation, we assign the mean of all GloVe vectors to the '< eos>' token and a random vector, with values between GloVe min and max values, to the '< unk>' token.
