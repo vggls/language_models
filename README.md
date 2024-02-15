@@ -84,18 +84,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
           <img src="https://github.com/vggls/language_models/assets/55101427/6f32296f-a5cf-48dc-ad44-d97856eddd71.png" height="60" width="490" />
         </p>
 
-- small-GPT2 language model general **architecture**:
-
-      (N,L+1) --> Embedding --> (N,L,E) --> 12 transformer --> (N,L,E) --> Linear Head --> (N,L,|V|)
-       input       layers        matrix        layers           matrix        layer         matrix
-  
-         where N: batch size
-               L: integer-sequence length
-               E: embedding dim is 768 for the small version of GPT2
-             |V|: vocabulary V size
-    <!--VERY IMPORTANT: No need to apply Softmax! The output is fed into an nn.CrossEntropyLoss, which applies softmax by default. See documentation.-->
-  
-  More info about the nature of embedding and transformer layers for this architecture can be found at the original [publication](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+- small GPT2 **architecture**: one may refer to the original [publication](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 
 - For this kind of models, the **perplexity** formula, introduced in section A, can be adjusted accordingly as per above loss formula.
   
