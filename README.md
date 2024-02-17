@@ -47,7 +47,7 @@ The Penn Treebank is downloaded from nltk and the sentences come in tokenized fo
   At time step t, *the loss is determined by the probability the model assigns to the correct next word* (which is *known* since we know the text). This learning approach is often called **teacher forcing**. For a sequence of L training tokens, the Cross-Entropy (CE) loss is given by the formula below. For any step t, due to the recurrence in the calculation of hidden states (i.e. h_(t+1) depends on h_t), the prediction y_(t+1) can be computed as long as y_t can be computed. This phenomenon results in a **sequential/serial loss calculation** over the time steps.
   
    <p align="center">
-       <img src="https://github.com/vggls/language_models/assets/55101427/87fdb7f4-0c32-433e-a34a-e19a1cc769d1.png" height="65" width="550" />
+       <img src="https://github.com/vggls/language_models/assets/55101427/85d9d665-d82d-4e95-9d7b-b410c14ef837.png" height="65" width="550" />
      </p> 
 
 - LSTM language model general **architecture**:
